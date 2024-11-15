@@ -20,7 +20,7 @@ class BookController extends Controller
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
             'genre_id' => 'required|exists:genres,id',
-            'publication_year' => 'required|digits:4',
+            'publication_year' => 'required|integer|min:1600|max:2025',
         ]);
 
         Book::create($request->all());
@@ -63,4 +63,4 @@ class BookController extends Controller
         return redirect()->route('books.index')->with('success', 'Könyv törölve!');
     }
 }
-
+ 

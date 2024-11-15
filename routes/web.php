@@ -33,4 +33,25 @@ Route::post('books/book/{id}/borrow', [BookingController::class, 'store'])->name
 
 Route::delete('books/{id}', [BookController::class, 'destroy'])->name('book.destroy');
 
+// Create route: Megjeleníti az űrlapot a könyv hozzáadásához
+Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+
+// Store route: A könyv adatainak mentésére szolgál a POST kérés
+Route::post('/books', [BookController::class, 'store'])->name('books.store');
+
+// Egyéb könyv route-ok (pl. listázás)
+Route::get('/books', [BookController::class, 'index'])->name('books.index');
+
+// Route a műfaj felvitelére (GET kérés, az űrlap megjelenítésére)
+Route::get('/genres/create', [GenreController::class, 'create'])->name('genres.create');
+
+// Route a műfajok mentésére (POST kérés, az űrlap adatainak feldolgozására)
+Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
+
+// Egyedi route a könyvek törlésére
+Route::delete('books/{book}', [BooksController::class, 'destroy'])->name('books.destroy');
+
+
+
+
 require __DIR__.'/auth.php';
