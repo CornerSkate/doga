@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +17,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('new-bookgenre', [BookController::class, 'create'])->name('new-bookgenre');
-Route::post('new-bookgenre', [BookController::class, 'store'])->name('new-bookgenre');
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookingController;
+
+Route::get('new-genre', [GenreController::class, 'create'])->name('genre.create');
+Route::post('new-genre', [GenreController::class, 'store'])->name('genre.store');
+
+Route::get('new-book', [BookController::class, 'create'])->name('book.create');
+Route::post('new-book', [BookController::class, 'store'])->name('book.store');
+
+Route::get('books', [BookController::class, 'index'])->name('books.index');
+Route::get('books/book/{id}', [BookController::class, 'show'])->name('books.show');
+Route::post('books/book/{id}/borrow', [BookingController::class, 'store'])->name('book.borrow');
+
+Route::delete('books/{id}', [BookController::class, 'destroy'])->name('book.destroy');
+
 require __DIR__.'/auth.php';
