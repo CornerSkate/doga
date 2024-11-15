@@ -16,5 +16,14 @@ class Book extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+    
+    use HasFactory;
+
+    // Kapcsolat a kölcsönzésekkel
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }
+
 

@@ -62,5 +62,35 @@ class BookController extends Controller
         Book::destroy($id);
         return redirect()->route('books.index')->with('success', 'Könyv törölve!');
     }
+};
+
+class BooksController extends Controller
+{
+    // A kölcsönzés űrlap megjelenítése
+    public function borrowForm(Book $book)
+    {
+        return view('books.borrow', compact('book'));
+    }
+
+    // Kölcsönzés rögzítése
+    public function borrow(Request $request, Book $book)
+    {
+        // Az adatok validálása
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'borrowed_date' => 'required|date',
+        ]);
+
+        // Kölcsönzés mentése
+        $book->reservations()->create([
+            'email' => $validated['email'],
+            'borrowed_date' => $validated['borrowed_date'],
+            'return_date' => null, // Visszavitel dátuma később kerül beállításra
+        ]);
+
+        // Visszairányítás a könyvek listájához vagy egy másik oldalra
+        return redirect()->route('books.index')->with('success', 'A könyv kölcsönzése sikeres!');
+    }
 }
+
  

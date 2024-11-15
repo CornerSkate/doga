@@ -51,6 +51,11 @@ Route::post('/genres', [GenreController::class, 'store'])->name('genres.store');
 // Egyedi route a könyvek törlésére
 Route::delete('books/{book}', [BooksController::class, 'destroy'])->name('books.destroy');
 
+// Könyv részletes oldala, ahol kölcsönözni lehet
+Route::get('books/{book}/borrow', [BooksController::class, 'borrowForm'])->name('books.borrowForm');
+Route::post('books/{book}/borrow', [BooksController::class, 'borrow'])->name('books.borrow');
+
+
 
 
 
